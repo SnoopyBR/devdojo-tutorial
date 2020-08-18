@@ -9,10 +9,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.com.devdojo.model.Anime;
+import br.com.devdojo.util.Utils;
+import lombok.RequiredArgsConstructor;
 
 @Repository
+@RequiredArgsConstructor
 public class AnimeRepository {
 
+	private final Utils utils;
 	private static List<Anime> animes;
 	
 	static {
@@ -21,6 +25,10 @@ public class AnimeRepository {
 				new Anime(2, "Berserk"),
 				new Anime(3, "Naruto")
 				));
+	}
+	
+	public Anime findById(int id){
+		return utils.findAnimeOrThrowNotFound(id, animes);		
 	}
 	
 	public List<Anime> listAll(){
@@ -33,15 +41,13 @@ public class AnimeRepository {
 		return anime;
 	}
 
-	public void delete(long id) {
-		animes.remove(animes
-				.stream()
-				.filter(anime -> anime.getId() == id)
-				.findFirst()
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Anime not found"))
-				);
-		
-		
+	public void delete(int id) {
+		animes.remove(utils.findAnimeOrThrowNotFound(id, animes));
+	}
+
+	public void update(Anime anime) {
+		animes.remove(utils.findAnimeOrThrowNotFound(anime.getId(), animes));
+		animes.add(anime);
 	}
 	
 }
