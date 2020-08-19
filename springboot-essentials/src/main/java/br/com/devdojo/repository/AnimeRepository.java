@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.server.ResponseStatusException;
 
-import br.com.devdojo.model.Anime;
+import br.com.devdojo.domain.Anime;
 import br.com.devdojo.util.Utils;
 import lombok.RequiredArgsConstructor;
 

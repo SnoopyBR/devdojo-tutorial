@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.devdojo.model.Anime;
+import br.com.devdojo.domain.Anime;
 import br.com.devdojo.repository.AnimeRepository;
 import br.com.devdojo.util.Utils;
 import lombok.RequiredArgsConstructor;
