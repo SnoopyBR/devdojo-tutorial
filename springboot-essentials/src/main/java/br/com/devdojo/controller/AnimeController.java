@@ -1,7 +1,8 @@
 package br.com.devdojo.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.devdojo.domain.Anime;
-import br.com.devdojo.repository.AnimeRepository;
-import br.com.devdojo.util.Utils;
+import br.com.devdojo.service.AnimeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,36 +27,39 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class AnimeController {
 
-	private final Utils dateUtil;
-	private final AnimeRepository animeRepository;
+	private final AnimeService animeService;
 
 	@GetMapping()
 	public ResponseEntity<List<Anime>> listAll() {
-		log.info("Formating the date {}", dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-		return  ResponseEntity.ok(animeRepository.listAll());
+		return ResponseEntity.ok(animeService.listAll());
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<Anime> findById(@PathVariable int id){
-		return ResponseEntity.ok(animeRepository.findById(id));
+	public ResponseEntity<Anime> findById(@PathVariable int id) {
+		return ResponseEntity.ok(animeService.findById(id));
+	}
+
+	@GetMapping("/find")
+	public ResponseEntity<List<Anime>> findByName(@RequestParam(value = "name") String name) {
+		return ResponseEntity.ok(animeService.findByName(name));
 	}
 
 	@PostMapping
-	public ResponseEntity<Anime> save(@RequestBody Anime anime){
-		return ResponseEntity.ok(animeRepository.save(anime));
+	public ResponseEntity<Anime> save(@RequestBody @Valid  Anime anime) {
+		return ResponseEntity.ok(animeService.save(anime));
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable int id){
-		log.info("Deleting anime with id {}",id);
-		animeRepository.delete(id);
+	public ResponseEntity<Void> delete(@PathVariable int id) {
+		log.info("Deleting anime with id {}", id);
+		animeService.delete(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
+
 	@PutMapping
-	public ResponseEntity<Void> update(@RequestBody Anime anime){
-		animeRepository.update(anime);
+	public ResponseEntity<Void> update(@RequestBody Anime anime) {
+		animeService.update(anime);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
+
 }
