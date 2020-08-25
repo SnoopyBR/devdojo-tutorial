@@ -2,6 +2,8 @@ package br.com.devdojo.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,8 +24,8 @@ public class AnimeService {
 		return utils.findAnimeOrThrowNotFound(id, animeRepository);		
 	}
 	
-	public List<Anime> listAll(){
-		return animeRepository.findAll();
+	public Page<Anime> listAll(Pageable pageable){
+		return animeRepository.findAll(pageable);
 	}
 	
 	@Transactional

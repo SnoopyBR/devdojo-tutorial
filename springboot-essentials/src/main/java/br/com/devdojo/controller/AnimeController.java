@@ -31,18 +31,11 @@ public class AnimeController {
 
 	private final AnimeService animeService;
 
-//	@GetMapping()
-//	public ResponseEntity<Page<Anime>> listAll(Pageable pageable) {
-//		return ResponseEntity.ok(animeService.listAll(pageable));
-//	}
-
-
 	@GetMapping()
-	public ResponseEntity<List<Anime>> listAll() {
-		return ResponseEntity.ok(animeService.listAll());
+	public ResponseEntity<Page<Anime>> listAll(Pageable pageable) {
+		return ResponseEntity.ok(animeService.listAll(pageable));
 	}
-	
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<Anime> findById(@PathVariable int id) {
 		return ResponseEntity.ok(animeService.findById(id));

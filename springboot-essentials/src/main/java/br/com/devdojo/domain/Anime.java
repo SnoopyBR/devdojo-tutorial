@@ -7,9 +7,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.URL;
-
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @NoArgsConstructor
+@Builder
 public class Anime {
 
 	@Id
@@ -25,9 +25,5 @@ public class Anime {
 	@NotNull
 	@NotEmpty(message = "The name of this anime cannot be empty")
 	private String name;
-	@URL
-	@NotNull
-	private String url;
-	
 	
 }
