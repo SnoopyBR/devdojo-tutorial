@@ -22,4 +22,19 @@ logging:  level:    org:
           descriptor:
             sql:
               BasicBinder: TRACE
-            
+              
+management:
+  endpoints:
+    web:      exposure:        include: info, health, metrics, prometheus   endpoint:    health:      show-details: when-authorized   
+#    metrics:
+#      enabled: false
+#    prometheus:
+#      enabled: true   
+#  metrics:
+#    export:
+#      prometheus:
+#        enabled: true
+info:
+  app: Springboot 2 Essentials
+  website: http://devdojo.academy
+  github: https://github.com/devdojoacademy/springboot2-essentials

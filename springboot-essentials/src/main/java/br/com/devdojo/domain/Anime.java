@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class Anime {
 	private Integer id;
 	@NotNull
 	@NotEmpty(message = "The name of this anime cannot be empty")
+	@Schema(description = "Anime's name", example = "Tensei Shittara", required = true)
 	private String name;
 	
 }

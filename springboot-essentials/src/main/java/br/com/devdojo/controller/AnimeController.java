@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.devdojo.domain.Anime;
 import br.com.devdojo.service.AnimeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,15 +39,18 @@ public class AnimeController {
 	private final AnimeService animeService;
 
 	@GetMapping()
+	@Operation(summary = "List all animes paginated and sorted",
+	description = "To use pagination and sort add the params ?page='number'&sort='field' to the url",
+	tags= {"anime"})
 	public ResponseEntity<Page<Anime>> listAll(Pageable pageable) {
 		return ResponseEntity.ok(animeService.listAll(pageable));
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Anime> findById(@PathVariable int id) {
+		log.info("User logged in {}");
 		return ResponseEntity.ok(animeService.findById(id));
 	}
-
 	@GetMapping("/find")
 	public ResponseEntity<List<Anime>> findByName(@RequestParam(value = "name") String name) {
 		return ResponseEntity.ok(animeService.findByName(name));
@@ -52,8 +61,11 @@ public class AnimeController {
 		return ResponseEntity.ok(animeService.save(anime));
 	}
 
-	@DeleteMapping("/{id}")
-	@PreAuthorize( "hasRole('ADMIN')")
+	@DeleteMapping("/admin/{id}")
+	@ApiResponses(value= {
+			@ApiResponse(responseCode = "204", description="Successful operation"),
+			@ApiResponse(responseCode = "404", description="Not found")
+	})
 	public ResponseEntity<Void> delete(@PathVariable int id) {
 		log.info("Deleting anime with id {}", id);
 		animeService.delete(id);

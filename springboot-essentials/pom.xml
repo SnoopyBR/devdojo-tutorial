@@ -17,9 +17,22 @@
 
 	<properties>
 		<java.version>14</java.version>
+		<springdoc-openapi-security.version>1.4.6</springdoc-openapi-security.version>
+		<springdoc-openapi-data-rest.version>1.4.6</springdoc-openapi-data-rest.version>
+		<springdoc-openapi-ui.version>1.4.6</springdoc-openapi-ui.version>
 	</properties>
 
 	<dependencies>
+	
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -78,6 +91,23 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>${springdoc-openapi-ui.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-data-rest</artifactId>
+			<version>${springdoc-openapi-data-rest.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-security</artifactId>
+			<version>${springdoc-openapi-security.version}</version>
 		</dependency>
 	</dependencies>
 
