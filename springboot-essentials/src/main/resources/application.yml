@@ -3,19 +3,17 @@ server:
     include-stacktrace:  always
 spring:
   datasource:
-    #url: jdbc:mysql://localhost:3306/anime?useSSL=false
-    #username: root
-    #password: root
-    url: jdbc:sqlserver://brjgsd312446;instanceName=SQLEXPRESS;databaseName=anime
-    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    password: weg1234@
-    username: sa
+    url: jdbc:mysql://localhost:3306/anime?useSSL=false
+    username: root
+    password: root
   jpa:
   
     hibernate:
       ddl-auto: update
 
-logging:  level:    org:
+logging:
+  level:
+    org:
       hibernate:
         SQL: DEBUG
         type: 
@@ -25,7 +23,12 @@ logging:  level:    org:
               
 management:
   endpoints:
-    web:      exposure:        include: info, health, metrics, prometheus   endpoint:    health:      show-details: when-authorized   
+    web:
+      exposure:
+        include: info, health, metrics, prometheus 
+  endpoint:
+    health:
+      show-details: when-authorized   
 #    metrics:
 #      enabled: false
 #    prometheus:
